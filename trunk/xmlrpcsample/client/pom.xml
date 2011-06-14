@@ -3,15 +3,15 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>com.tinywebgears.samples</groupId>
-    <artifactId>xmlrpc-backend</artifactId>
-    <version>1.0.0</version>
-  </parent>
+	<parent>
+		<groupId>com.tinywebgears.samples</groupId>
+		<artifactId>xmlrpc-backend</artifactId>
+		<version>1.0.0</version>
+	</parent>
 
-  <artifactId>xmlrpc-backend-client</artifactId>
-  <name>Sample XML-RPC - Client</name>
-  <packaging>jar</packaging>
+	<artifactId>xmlrpc-backend-client</artifactId>
+	<name>Sample XML-RPC - Client</name>
+	<packaging>jar</packaging>
 
 	<dependencies>
 

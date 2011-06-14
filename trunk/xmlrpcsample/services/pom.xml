@@ -3,15 +3,15 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>com.tinywebgears.samples</groupId>
-    <artifactId>xmlrpc-backend</artifactId>
-    <version>1.0.0</version>
-  </parent>
+	<parent>
+		<groupId>com.tinywebgears.samples</groupId>
+		<artifactId>xmlrpc-backend</artifactId>
+		<version>1.0.0</version>
+	</parent>
 
-  <artifactId>xmlrpc-backend-services</artifactId>
-  <name>Sample XML-RPC - Services</name>
-  <packaging>war</packaging>
+	<artifactId>xmlrpc-backend-services</artifactId>
+	<name>Sample XML-RPC - Services</name>
+	<packaging>war</packaging>
 
 	<dependencies>
 
@@ -39,6 +39,12 @@
 			<groupId>org.apache.xmlrpc</groupId>
 			<artifactId>xmlrpc-server</artifactId>
 			<version>${org.apache.xmlrpc.xmlrpc-server.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>xalan</groupId>
+			<artifactId>xalan</artifactId>
+			<version>${xalanVersion}</version>
 		</dependency>
 
 		<!-- Core utilities used by other modules. Define this if you use Spring 
