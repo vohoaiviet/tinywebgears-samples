@@ -13,7 +13,7 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
 	<!-- XML-RPC -->
 
 	<!-- XML-RPC Services -->
-	<bean id="sampleService" class="com.tinywebgears.samples.service.SampleService">
+	<bean id="sampleService" class="com.tinywebgears.samples.service.SampleServiceImpl">
 	</bean>
 	<!-- Processor Factory -->
 	<bean id="requestProcessorFactory"

@@ -1,9 +1,6 @@
 package com.tinywebgears.samples.service;
 
-public class SampleService
+public interface SampleService
 {
-    public String getVersion()
-    {
-        return "0.0.1";
-    }
+    String getVersion();
 }

@@ -33,6 +33,7 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>${javax.servlet.servlet-api.version}</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -170,6 +171,10 @@
 		</dependency>
 
 	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+	</build>
 
 </project>
 
