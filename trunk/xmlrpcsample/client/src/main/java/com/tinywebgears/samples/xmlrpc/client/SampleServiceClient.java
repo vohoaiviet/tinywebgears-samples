@@ -13,7 +13,7 @@ public class SampleServiceClient
     public static void main(String args[]) throws MalformedURLException, XmlRpcException
     {
         XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
-        config.setServerURL(new URL("http://127.0.0.1:8080/xmlrpc-backend-services-1.0.0/xmlrpc/"));
+        config.setServerURL(new URL("http://127.0.0.1:8080/xmlrpc-backend-services/xmlrpc/"));
 
         XmlRpcClient client = new XmlRpcClient();
         client.setTransportFactory(new XmlRpcCommonsTransportFactory(client));
