@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- ========= -->
+	<!-- Appenders -->
+	<!-- ========= -->
+
+	<!-- Stdandard Output Appender, Info Threshold -->
+	<appender name="StdoutAppender" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<param name="Threshold" value="INFO" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%t] %C{2} (%F:%L) - %m%n" />
+		</layout>
+	</appender>
+	<!-- SysLog Appender, Info Threshold -->
+	<appender name="SysLogger" class="org.apache.log4j.net.SyslogAppender">
+		<param name="Facility" value="LOCAL5" />
+		<param name="SyslogHost" value="localhost" />
+		<param name="MaxBackupIndex" value="52" />
+		<param name="Threshold" value="INFO" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-5p] %c{1} %m%n" />
+		</layout>
+	</appender>
+	<!-- Error Log Appender, Error Threshold -->
+	<appender name="ErrorLogAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="DatePattern" value=".yyyy-ww" />
+		<param name="File" value="${catalina.home}/logs/tomcat.log" />
+		<param name="Threshold" value="ERROR" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd/HH:mm:ss.SSS/zzz} [%-5p] %c{1} %m%n" />
+		</layout>
+	</appender>
+
+	<!-- Sirca Stdandard Output Appender, Debug Threshold -->
+	<appender name="SircaStdoutAppender" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<param name="Threshold" value="DEBUG" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%t] %C{2} (%F:%L) - %m%n" />
+		</layout>
+	</appender>
+	<!-- Sirca Error Log Appender, Warning Threshold -->
+	<appender name="SircaLogAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/tomcat.log" />
+		<param name="Threshold" value="WARN" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd/HH:mm:ss.SSS/zzz} [%-5p] %c{1} %m%n" />
+		</layout>
+	</appender>
+
+	<!-- =================== -->
+	<!-- Custom Sirca Logger -->
+	<!-- =================== -->
+
+	<!-- Perform custome logging for sirca, overriding error log threshold. -->
+	<logger name="au.org.sirca" additivity="false">
+		<level value="ALL" />
+		<appender-ref ref="SircaLogAppender" />
+		<appender-ref ref="SysLogger" />
+		<appender-ref ref="SircaStdoutAppender" />
+	</logger>
+
+	<!-- =========== -->
+	<!-- Root Logger -->
+	<!-- =========== -->
+
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="ErrorLogAppender" />
+		<appender-ref ref="SysLogger" />
+		<appender-ref ref="StdoutAppender" />
+	</root>
+
+</log4j:configuration>
