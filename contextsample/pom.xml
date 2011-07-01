@@ -25,7 +25,7 @@
 		<junitVersion>4.5</junitVersion>
 		<log4jVersion>1.2.15</log4jVersion>
 		<slf4jVersion>1.5.6</slf4jVersion>
-		<logbackVersion>0.9.15</logbackVersion>
+		<slf4jLog4jVersion>1.5.6</slf4jLog4jVersion>
 		<xalanVersion>2.7.1</xalanVersion>
 		<servletApiVersion>2.5</servletApiVersion>
 		<revisionNumberPluginVersion>1.6</revisionNumberPluginVersion>
@@ -52,16 +52,17 @@
 				<scope>test</scope>
 			</dependency>
 
-			<!-- Logging (compatible with AppEngine) -->
+			<!-- Logging -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
 				<version>${slf4jVersion}</version>
 			</dependency>
+
 			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-classic</artifactId>
-				<version>${logbackVersion}</version>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4jLog4jVersion}</version>
 			</dependency>
 
 			<dependency>

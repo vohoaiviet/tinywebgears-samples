@@ -1,7 +1,12 @@
 package com.tinywebgears.samples.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class SampleServiceImpl implements SampleService
 {
+    private final Logger logger = LoggerFactory.getLogger(SampleServiceImpl.class);
+
     private final String environmentName;
     private final String productName;
     private final String productVersion;
@@ -18,6 +23,7 @@ public class SampleServiceImpl implements SampleService
     @Override
     public String getVersion()
     {
+        logger.debug("SampleServiceImpl.getVersion() method called.");
         return productName + " (version: " + productVersion + ", SVN revision: " + svnRevision
                 + ", deployment environment: " + environmentName + ")";
     }
