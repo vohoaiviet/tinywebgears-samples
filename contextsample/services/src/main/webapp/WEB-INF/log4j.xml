@@ -2,10 +2,9 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
-	<!-- Stdandard Output Appender, Info Threshold -->
+	<!-- Stdandard Output Appender, Debug Threshold -->
 	<appender name="StdoutAppender" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
-		<param name="Threshold" value="INFO" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%t] %C{2} (%F:%L) - %m%n" />
 		</layout>
@@ -13,7 +12,7 @@
 
 	<!-- Root Logger -->
 	<root>
-		<level value="INFO" />
+		<level value="DEBUG" />
 		<appender-ref ref="StdoutAppender" />
 	</root>
 
