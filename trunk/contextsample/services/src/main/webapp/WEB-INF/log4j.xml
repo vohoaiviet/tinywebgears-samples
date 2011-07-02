@@ -2,38 +2,18 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
-	<!-- Appenders -->
-
-	<!-- Stdandard Output Appender, Debug Threshold -->
+	<!-- Stdandard Output Appender, Info Threshold -->
 	<appender name="StdoutAppender" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
-		<param name="Threshold" value="DEBUG" />
+		<param name="Threshold" value="INFO" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%t] %C{2} (%F:%L) - %m%n" />
 		</layout>
 	</appender>
-
-	<!-- Custom Stdandard Output Appender, Debug Threshold -->
-	<appender name="CustomStdoutAppender" class="org.apache.log4j.ConsoleAppender">
-		<param name="Target" value="System.out" />
-		<param name="Threshold" value="DEBUG" />
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%t] %C{2} (%F:%L) - %m%n" />
-		</layout>
-	</appender>
-
-	<!-- Custom Logger -->
-
-	<!-- Perform custome logging, overriding error log threshold. -->
-	<logger name="com.tinywebgears" additivity="false">
-		<level value="ALL" />
-		<appender-ref ref="CustomStdoutAppender" />
-	</logger>
 
 	<!-- Root Logger -->
-
 	<root>
-		<level value="DEBUG" />
+		<level value="INFO" />
 		<appender-ref ref="StdoutAppender" />
 	</root>
 
