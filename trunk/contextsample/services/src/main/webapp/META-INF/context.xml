@@ -2,7 +2,7 @@
 
 <!-- Context configuration file for the Data Library XML-RPC services -->
 
-<Context docBase="${catalina.home}/webapps/datalibrary-backend-services"
+<Context docBase="${catalina.home}/webapps/contextsample-services"
 	privileged="true" antiResourceLocking="false" antiJARLocking="false">
 
 	<!-- Define parameters -->
