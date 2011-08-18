@@ -2,6 +2,7 @@ package com.tinywebgears.simplegae.webapp;
 
 import java.io.Serializable;
 import java.security.Principal;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,14 +12,19 @@ import org.slf4j.LoggerFactory;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.tinywebgears.simplegae.core.dao.UserRepository;
+import com.tinywebgears.simplegae.core.model.User;
 import com.tinywebgears.simplegae.core.service.DefaultUserServices;
 import com.tinywebgears.simplegae.core.service.UserServicesIF;
-import com.tinywebgears.simplegae.core.model.User;
 import com.vaadin.Application;
 import com.vaadin.service.ApplicationContext;
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.terminal.Resource;
+import com.vaadin.terminal.Sizeable;
 import com.vaadin.terminal.gwt.server.WebApplicationContext;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.Link;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.Notification;
 
@@ -32,6 +38,11 @@ public class WebApplication extends Application implements ApplicationContext.Tr
     private final UserSession session = new UserSession();
     private Boolean initialized = false;
     private Window mainWindow;
+    private HorizontalLayout headerLayout;
+    private HorizontalLayout loginForm;
+    private HorizontalLayout logoutForm;
+    private VerticalLayout userInfoLayout;
+    private Label emailLabel;
 
     public WebApplication()
     {
@@ -102,12 +113,8 @@ public class WebApplication extends Application implements ApplicationContext.Tr
             logger.debug("Creating main window");
             Resource loginUrl = new ExternalResource(userService.createLoginURL(request.getRequestURI()));
             Resource logoutUrl = new ExternalResource(userService.createLogoutURL(request.getRequestURI()));
-            mainWindow = new Window("Main Window");
-            setMainWindow(mainWindow);
-            // TODO: Implement
-            // setLoggedIn(false);
-            showMessage("Welcome!");
-            initialized = true;
+            initUiComponents(loginUrl, logoutUrl);
+            setLoggedIn(null);
         }
 
         if (request.getUserPrincipal() != null)
@@ -120,9 +127,8 @@ public class WebApplication extends Application implements ApplicationContext.Tr
             session.setSession(userid, userid, userService.isUserAdmin(), nickname);
             try
             {
-                User user = userServices.setUsername(userid, userid, nickname);
-                // TODO: Implement
-                // setLoggedIn(true);
+                User user = userServices.setUser(userid, userid, nickname);
+                setLoggedIn(user);
             }
             catch (Exception e)
             {
@@ -142,8 +148,7 @@ public class WebApplication extends Application implements ApplicationContext.Tr
                 {
                     userServices.clearUser();
                     session.clearSession();
-                    // TODO: Implement
-                    // setLoggedIn(false);
+                    setLoggedIn(null);
                 }
                 catch (Exception e)
                 {
@@ -185,9 +190,71 @@ public class WebApplication extends Application implements ApplicationContext.Tr
             mainWindow.showNotification("", description, Notification.TYPE_HUMANIZED_MESSAGE);
     }
 
+    private void initUiComponents(Resource loginUrl, Resource logoutUrl)
+    {
+        mainWindow = new Window("Simple GAE Application using Vaadin");
+        mainWindow.setSizeFull();
+        setMainWindow(mainWindow);
+
+        VerticalLayout mainLayout = new VerticalLayout();
+        mainLayout.setMargin(true);
+        mainLayout.setSpacing(true);
+        mainLayout.setSizeFull();
+        mainWindow.addComponent(mainLayout);
+
+        headerLayout = new HorizontalLayout();
+        headerLayout.setWidth(100, Sizeable.UNITS_PERCENTAGE);
+        mainLayout.addComponent(headerLayout);
+
+        loginForm = new HorizontalLayout();
+        // loginForm.setWidth(100, Sizeable.UNITS_PERCENTAGE);
+        loginForm.setSpacing(true);
+        Label loginLabel = new Label("Please use this button to log in.");
+        loginLabel.setWidth(100, Sizeable.UNITS_PERCENTAGE);
+        loginForm.addComponent(loginLabel);
+        loginForm.addComponent(new Link("Login", loginUrl));
+
+        logoutForm = new HorizontalLayout();
+        // logoutForm.setWidth(100, Sizeable.UNITS_PERCENTAGE);
+        logoutForm.setSpacing(true);
+        emailLabel = new Label("");
+        emailLabel.setWidth(100, Sizeable.UNITS_PERCENTAGE);
+        logoutForm.addComponent(emailLabel);
+        logoutForm.addComponent(new Link("Logout", logoutUrl));
+
+        userInfoLayout = new VerticalLayout();
+        mainLayout.addComponent(userInfoLayout);
+        initialized = true;
+    }
+
+    private void setLoggedIn(User user)
+    {
+        headerLayout.removeAllComponents();
+        userInfoLayout.removeAllComponents();
+        if (user == null)
+        {
+            headerLayout.addComponent(loginForm);
+        }
+        else
+        {
+            headerLayout.addComponent(logoutForm);
+            emailLabel.setValue(user.getEmail());
+            Label welcomeLabel = new Label("Welcome " + user.getNickname());
+            welcomeLabel.setWidth(100, Sizeable.UNITS_PERCENTAGE);
+            userInfoLayout.addComponent(welcomeLabel);
+            Label lastLoginLabel = new Label();
+            if (user.getLastLoginDate() != null)
+                lastLoginLabel.setValue("Your last login time was " + user.getLastLoginDate());
+            else
+                lastLoginLabel.setValue("This is the first time you log in.");
+            lastLoginLabel.setWidth(100, Sizeable.UNITS_PERCENTAGE);
+            userInfoLayout.addComponent(lastLoginLabel);
+            userServices.updateUserLoginDate(user.getKey(), new Date());
+        }
+    }
+
     private static class DatabaseServices implements Serializable
     {
-        // Singleton services
         private final static UserRepository userRepo;
 
         static
