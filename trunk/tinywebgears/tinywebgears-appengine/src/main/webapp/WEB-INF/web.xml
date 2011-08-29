@@ -13,7 +13,7 @@
 		<servlet-class>com.vaadin.terminal.gwt.server.GAEApplicationServlet</servlet-class>
 		<init-param>
 			<param-name>application</param-name>
-			<param-value>com.tinywebgears.tinywebgears.webapp.WebApplication</param-value>
+			<param-value>com.tinywebgears.webapp.WebApplication</param-value>
 		</init-param>
 	</servlet>
 
